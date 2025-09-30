@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Tareas - Ejercicio DOM</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #333;
+    }
+
+    .container {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      text-align: center;
+      color: #4a5568;
+      margin-bottom: 30px;
+    }
+
+    .input-section {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    #taskInput {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    #taskInput:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    #addBtn {
+      padding: 12px 20px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    #addBtn:hover {
+      background: #5a67d8;
+      transform: translateY(-2px);
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px 0;
+      padding: 15px;
+      background: #f7fafc;
+      border-radius: 8px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 24px;
+      font-weight: bold;
+      color: #667eea;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: #718096;
+    }
+
+    #taskList {
+      list-style: none;
+      padding: 0;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      margin: 10px 0;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    .task-item.completed {
+      opacity: 0.7;
+      border-left-color: #48bb78;
+    }
+
+    .task-item.completed .task-text {
+      text-decoration: line-through;
+      color: #718096;
+    }
+
+    .task-checkbox {
+      margin-right: 15px;
+      transform: scale(1.3);
+    }
+
+    .task-text {
+      flex: 1;
+      font-size: 16px;
+    }
+
+    .delete-btn {
+      background: #e53e3e;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .delete-btn:hover {
+      background: #c53030;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .empty-state {
+      text-align: center;
+      color: #718096;
+      font-style: italic;
+      padding: 40px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>📝 Mi Lista de Tareas</h1>
+  <h3>Servlet GET</h3>
+  <!-- Sección de entrada de datos -->
+  <form action="hello-servlet" method="get">
+    <div class="input-section">
+      <input type="text" id="taskInput" placeholder="Escribe tu tarea aquí..." maxlength="100">
+      <button id="sendBtn" type="submit">Call GET</button>
+    </div>
+  </form>
+  <h3>Servlet POST</h3>
+
+      <input type="text" id="tarea" name="tarea" placeholder="Escribe tu tarea aquí..." maxlength="100">
+      <input type="email" id="correo" name="correo">
+      <input type="number" id="telefono" name="telefono" maxlength="8">
+      <input type = "hidden" id="_method" value="POST" name="_method">
+      <button type="submit">Call POST</button>
+  </form>
+  <!-- Estadísticas -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-number" id="totalTasks">0</div>
+      <div class="stat-label">Total</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number" id="completedTasks">0</div>
+      <div class="stat-label"/>Completadas
+    </div>
+
+      <div class="stat-number" id="pendingTasks">0</div>
+      <div class="stat-label">Pendientes</div>
+    </div>
+  </div>
+
+  <!-- Lista de tareas -->
+  <ul id="taskList">
+    <li class="empty-state">No hay tareas. ¡Agrega una para comenzar!</li>
+  </ul>
+</div>
+
+<script>
+  // PASO 1: Obtener referencias a los elementos del DOM
+  const taskInput = document.getElementById('taskInput');
+  const addBtn = document.getElementById('addBtn');
+  const taskList = document.getElementById('taskList');
+  const totalTasksCounter = document.getElementById('totalTasks');
+  const completedTasksCounter = document.getElementById('completedTasks');
+  const pendingTasksCounter = document.getElementById('pendingTasks');
+
+  // PASO 2: Crear un array para almacenar las tareas
+  let tasks = [];
+  let taskIdCounter = 1;
+
+  // PASO 3: Función para agregar una nueva tarea
+  function addTask() {
+    const taskText = taskInput.value.trim();
+
+    // Validar que el campo no esté vacío
+    if (taskText === '') {
+      alert('Por favor, escribe una tarea');
+      return;
+    }
+
+    // Crear objeto tarea
+    const task = {
+      id: taskIdCounter++,
+      text: taskText,
+      completed: false
+    };
+
+    // Agregar al array
+    tasks.push(task);
+
+    // Limpiar el input
+    taskInput.value = '';
+
+    // Actualizar la interfaz
+    renderTasks();
+    updateStats();
+  }
+
+  // PASO 4: Función para renderizar las tareas en el DOM
+  function renderTasks() {
+    // Limpiar la lista
+    taskList.innerHTML = '';
+
+    // Si no hay tareas, mostrar mensaje
+    if (tasks.length === 0) {
+      taskList.innerHTML = '<li class="empty-state">No hay tareas. ¡Agrega una para comenzar!</li>';
+      return;
+    }
+
+    // Crear elementos para cada tarea
+    tasks.forEach(task => {
+      const listItem = document.createElement('li');
+      listItem.className = `task-item ${task.completed ? 'completed' : ''}`;
+      listItem.innerHTML = `
+                    <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''}
+                           onchange="toggleTask(${task.id})">
+                    <span class="task-text">${task.text}</span>
+                    <button class="delete-btn" onclick="deleteTask(${task.id})">Eliminar</button>
+                `;
+      taskList.appendChild(listItem);
+    });
+  }
+
+  // PASO 5: Función para marcar/desmarcar tarea como completada
+  function toggleTask(taskId) {
+    // Encontrar la tarea y cambiar su estado
+    const task = tasks.find(t => t.id === taskId);
+    if (task) {
+      task.completed = !task.completed;
+      renderTasks();
+      updateStats();
+    }
+  }
+
+  // PASO 6: Función para eliminar una tarea
+  function deleteTask(taskId) {
+    // Confirmar eliminación
+    if (confirm('¿Estás seguro de que quieres eliminar esta tarea?')) {
+      tasks = tasks.filter(t => t.id !== taskId);
+      renderTasks();
+      updateStats();
+    }
+  }
+
+  // PASO 7: Función para actualizar las estadísticas
+  function updateStats() {
+    const total = tasks.length;
+    const completed = tasks.filter(t => t.completed).length;
+    const pending = total - completed;
+
+    // Actualizar los contadores en el DOM
+    totalTasksCounter.textContent = total;
+    completedTasksCounter.textContent = completed;
+    pendingTasksCounter.textContent = pending;
+  }
+
+  // PASO 8: Event listeners
+
+  // Agregar tarea con el botón
+  addBtn.addEventListener('click', addTask);
+
+  // Agregar tarea con Enter
+  taskInput.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+      addTask();
+    }
+  });
+
+  // PASO 9: Inicializar la aplicación
+  renderTasks();
+  updateStats();
+
+  // Opcional: Focus automático en el input
+  taskInput.focus();
+</script>
+</body>
+</html>
