@@ -98,10 +98,10 @@ public class HelloServlet extends HttpServlet {
         out.println("<h1>" + tarea + "</h1>");
         out.println("<h2>Correo Electrónico:</h2>");
         out.println("<h3>" + correo + "</h3>");
-        out.println("<h2>Número de teléfono:</h2>");
+        out.println("<h2>Número de Teléfono:</h2>");
         out.println("<h3>" + telefono + "</h3>");
         out.println("<h2>Método:</h2>");
-        out.println("<h3>" + metodo + "</h3>");
+        out.println("<h4>" + metodo + "</h4>");
         out.println("</body></html>");
     }
 
