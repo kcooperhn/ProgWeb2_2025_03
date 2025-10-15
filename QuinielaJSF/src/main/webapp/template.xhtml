@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+    <title><ui:insert name="title">Quiniela JSF</ui:insert></title>
+    <style>
+        /* Estilo para el cuerpo de la página */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Contenedor del menú de navegación */
+        .nav-menu {
+            background-color: #333;
+            overflow: hidden;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        /* Estilo para los enlaces del menú */
+        .nav-menu a {
+            display: inline-block;
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        /* Cambio de color al pasar el mouse sobre los enlaces */
+        .nav-menu a:hover {
+            background-color: #575757;
+        }
+
+        /* Estilo para el contenido principal de la página */
+        .content {
+            padding: 20px;
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <div class="nav-menu">
+        <h:link outcome="/index.xhtml" value="Resultados"/>
+        <h:link outcome="/partidos.xhtml" value="Partidos"/>
+        <h:link outcome="/posiciones.xhtml" value="Posiciones"/>
+    </div>
+
+    <div class="content">
+        <ui:insert name="content">
+            <!-- El contenido de cada página se insertará aquí -->
+        </ui:insert>
+    </div>
+</h:body>
+</html>
