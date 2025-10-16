@@ -1,20 +1,20 @@
 package org.fifa.quinielajsf.data;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Partido implements java.io.Serializable {
 
     private String rival1;
     private String rival2;
-    private LocalDateTime fechaHora;
+    private Date fechaHora;
 
     public Partido() {
         this.rival1 = "";
         this.rival2 = "";
-        //this.fechaHora = LocalDateTime.now();
+        this.fechaHora = new Date();
     }
 
-    public Partido(String rival1, String rival2, LocalDateTime fechaHora) {
+    public Partido(String rival1, String rival2, Date fechaHora) {
         this.rival1 = rival1;
         this.rival2 = rival2;
         this.fechaHora = fechaHora;
@@ -37,11 +37,12 @@ public class Partido implements java.io.Serializable {
         this.rival2 = rival2;
     }
 
-    public LocalDateTime getFechaHora() {
+    public Date getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(LocalDateTime fechaHora) {
+    public void setFechaHora(Date fechaHora) {
         this.fechaHora = fechaHora;
     }
+
 }
