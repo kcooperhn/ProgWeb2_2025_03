@@ -9,7 +9,79 @@
 
     <ui:define name="content">
         <h2>Resultados de la Quiniela</h2>
-        <!-- Aquí puedes agregar el contenido específico de tu página de inicio -->
+        <h:form>
+            <h:panelGrid columns="4" cellpadding="4">
+                <h:outputLabel for="codigoUsuario" value="Código de Usuario:"/>
+                <h:inputText id="codigoUsuario" value="#{ResultadosBean.codigoUsuario}" required="true"
+                             label="Código de Usuario"/>
+
+                <h:outputLabel for="partido" value="Seleccione un Partido:"/>
+                <h:selectOneMenu id="partido" value="#{ResultadosBean.partidoSeleccionado}" required="true"
+                                 label="Partido">
+                    <f:selectItem itemLabel="-- Seleccionar Partido --" itemValue="#{null}" noSelectionOption="true"/>
+                    <f:selectItems value="#{PartidosBean.partidosNoJugados}" var="p"
+                                   itemLabel="#{p.rival1} vs #{p.rival2}" itemValue="#{p}"/>
+                    <f:converter converterId="partidoConverter"/>
+                    <f:ajax execute="@this" render="panelPronostico"/>
+                </h:selectOneMenu>
+            </h:panelGrid>
+
+            <h:panelGroup id="panelPronostico">
+                <h:panelGrid columns="2" rendered="#{not empty ResultadosBean.partidoSeleccionado}">
+                    <h:outputLabel value="Pronóstico para #{ResultadosBean.partidoSeleccionado.rival1}:"/>
+                    <h:inputText value="#{ResultadosBean.golesRival1}" required="true" style="width: 50px;"/>
+
+                    <h:outputLabel value="Pronóstico para #{ResultadosBean.partidoSeleccionado.rival2}:"/>
+                    <h:inputText value="#{ResultadosBean.golesRival2}" required="true" style="width: 50px;"/>
+                </h:panelGrid>
+            </h:panelGroup>
+
+            <br/>
+            <h:commandButton value="Registrar Pronóstico" action="#{ResultadosBean.registrarResultado}"/>
+            <br/>
+            <h:messages style="color:red;"/>
+
+            <h2>Pronosticos Registrados</h2>
+            <!-- La tabla solo se muestra si la lista de partidos no está vacía -->
+            <h:dataTable value="#{ResultadosBean.pronosticos}" var="pr"
+                         rendered="#{not empty ResultadosBean.pronosticos}"
+                         styleClass="table"
+                         headerClass="table-header"
+                         rowClasses="table-odd-row,table-even-row">
+                <h:column>
+                    <f:facet name="header">Equipo Local</f:facet>
+                    <h:outputText value="#{pr.partido.rival1}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Goles Local</f:facet>
+                    <h:outputText value="#{pr.golesRival1}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Equipo Visitante</f:facet>
+                    <h:outputText value="#{pr.partido.rival2}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Equipo Visitante</f:facet>
+                    <h:outputText value="#{pr.golesRival2}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Fecha y Hora Partido</f:facet>
+                    <h:outputText value="#{pr.partido.fechaHora}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Fecha y Hora Pronostico</f:facet>
+                    <h:outputText value="#{pr.fechaHoraPronostico}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                    </h:outputText>
+                </h:column>
+            </h:dataTable>
+
+            <!-- Mensaje que se muestra si no hay partidos registrados -->
+            <h:outputText value="Aún no hay pronosticos registrados." rendered="#{empty ResultadosBean.pronosticos}"/>
+        </h:form>
+
     </ui:define>
 </ui:composition>
 </html>
