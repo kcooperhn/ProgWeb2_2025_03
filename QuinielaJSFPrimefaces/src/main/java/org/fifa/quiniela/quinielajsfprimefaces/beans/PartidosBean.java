@@ -3,6 +3,7 @@ package org.fifa.quiniela.quinielajsfprimefaces.beans;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 import org.fifa.quiniela.quinielajsfprimefaces.data.Partido;
 import org.fifa.quiniela.quinielajsfprimefaces.data.Partidos;
@@ -12,23 +13,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Named("PartidosBean")
-@SessionScoped
+@ViewScoped
 public class PartidosBean implements java.io.Serializable {
     private Partido partido;
     private LocalDateTime minDateTime;
     private LocalDateTime maxDateTime;
-    //private List<Partido> partidos;
 
     public PartidosBean(){
         this.partido = new Partido();
         this.minDateTime = LocalDateTime.now().plusMinutes(20);
         this.maxDateTime = LocalDateTime.now().plusMonths(6);
-        //this.partidos = new java.util.ArrayList<>();
     }
 
     public void registrarPartido() {
         //todo: hacer todas las validaciones que sean necearias
-        //this.partidos.add(this.partido);
         Partidos.getInstance().getPartidos().add(this.partido);
         this.partido = new Partido();
         showInfo("Registro de partido", "Registro completado exitosamente!");

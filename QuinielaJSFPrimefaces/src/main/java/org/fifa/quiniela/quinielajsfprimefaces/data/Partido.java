@@ -1,6 +1,5 @@
 package org.fifa.quiniela.quinielajsfprimefaces.data;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Partido implements java.io.Serializable {

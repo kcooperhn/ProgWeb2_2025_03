@@ -11,8 +11,8 @@
       <title>Quiniela JSF Primefaces</title>
    </h:head>
    <h:body>
-      <h:form>
-         <p:growl id="growl" showDetail="true" />
+      <h:form id="form1">
+         <p:growl id="growl" showDetail="false" />
          <p:megaMenu orientation="horizontal" autoDisplay="false">
             <p:submenu label="Videos" icon="pi pi-fw pi-video">
                <p:column>
@@ -130,35 +130,27 @@
             </f:facet>
          </p:megaMenu>
 
-<div class="card">
-         <div class="grid ui-fluid">
-            <div class="col-6 md:col-4">
-               <div class="ui-inputgroup">
-                  <div class="ui-inputgroup-addon"> </div>
-                  <p:inputText placeholder="Equipo Local" value="${PartidosBean.partido.rival1}"/>
-               </div>
-            </div>
-            <div class="col-6 md:col-4">
-               <div class="ui-inputgroup">
-                  <div class="ui-inputgroup-addon">VS</div>
-                  <p:inputText placeholder="Equipo Visitante" value="${PartidosBean.partido.rival2}"/>
-               </div>
-            </div>
-         </div>
+         <p:panelGrid columns="2" layout="flex"
+                      columnClasses="col-12 md:col-3 xl:col-2, col-12 md:col-9 xl:col-4, col-12 md:col-3 xl:col-2, col-12 md:col-9 xl:col-4"
+                      contentStyleClass="align-items-baseline ui-fluid">
+            <p:outputLabel for="txtrival1" value="Equipo Local"/>
+            <p:inputText id="txtrival1" placeholder="Equipo Local" value="${PartidosBean.partido.rival1}"
+                         required="true" requiredMessage="Debes de ingresar el nombre del equipo local"/>
 
-</div>
-         <div class="grid ui-fluid">
-            <div class="col-12">
-               <div class="ui-inputgroup">
-                  <div class="ui-inputgroup-addon"><i class="pi pi-calendar"/></div>
-                  <p:datePicker id="horarioPartido" value="#{PartidosBean.partido.fechaHora}" mindate="#{PartidosBean.minDateTime}"
-                                maxdate="#{PartidosBean.maxDateTime}" showButtonBar="true" timeInput="true" />
-               </div>
-            </div>
-         </div>
+            <p:outputLabel for="txtrival2" value="Equipo Visitante"/>
+            <p:inputText id="txtrival2" placeholder="Equipo Visitante" value="${PartidosBean.partido.rival2}"
+                         required="true" requiredMessage="Debes de ingresar el nombre del equipo visitante"/>
 
+            <p:outputLabel for="horarioPartido" value="Fecha y hora del partido"/>
+            <p:datePicker id="horarioPartido" value="#{PartidosBean.partido.fechaHora}" mindate="#{PartidosBean.minDateTime}"
+                          maxdate="#{PartidosBean.maxDateTime}" showButtonBar="true" timeInput="true"
+                          required="true" requiredMessage="Debes de ingresar la fecha y hora del encuentro"/>
 
-         <p:commandButton type="button" value="Registrar Partido" styleClass="rounded-button" update="growl" action="#{PartidosBean.registrarPartido()}"/>
+         </p:panelGrid>
+
+         <p:commandButton value="Registrar Partido" styleClass="rounded-button" update="growl,txtrival1,txtrival2,horarioPartido"
+                          actionListener="#{PartidosBean.registrarPartido}"/>
+
       </h:form>
    </h:body>
 </f:view>
