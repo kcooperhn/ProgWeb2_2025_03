@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
-    <title>Quiniela JSF Primefaces</title>
+    <title>Registro de Quiniela</title>
 </h:head>
 <h:body>
     <h:form id="form1">
@@ -14,7 +14,7 @@
           <p:submenu label="Resultados" icon="pi pi-fw pi-users">
              <p:column>
                 <p:submenu label="Resultados pasados">
-                   <p:menuitem value="Registrar Predicción" action="/prediccion.xhtml"/>
+                    <p:menuitem value="Registrar Predicción" action="/prediccion.xhtml"/>
                 </p:submenu>
                 <p:submenu label="Resultados en vivo">
                    <p:menuitem value="Ver en Vivo"/>
@@ -25,7 +25,7 @@
           <p:submenu label="Partidos" icon="pi pi-fw pi-calendar">
              <p:column>
                 <p:submenu label="Nuevos partidos">
-                   <p:menuitem value="Registrar nuevo"/>
+                   <p:menuitem value="Registrar nuevo" action="/index.xhtml"/>
                 </p:submenu>
                 <p:submenu label="Partidos registrados">
                    <p:menuitem value="Partidos siguientes"/>
@@ -44,8 +44,14 @@
        </p:megaMenu>
         <p:growl id="growl" showDetail="false"/>
 
-        <p:panel header="Registro de Partidos">
+        <p:panel header="Registro de Resultado">
             <p:panelGrid columns="2" layout="grid" styleClass="ui-fluid">
+                <p:outputLabel for="@next" value="Partido"/>
+                <p:selectOneMenu id="partidoPronostico" value="#{PronosticosBean.obtenerPartidos()}">
+                    <f:selectItem itemLabel="Zero" itemValue="0"/>
+                    <f:selectItem itemLabel="One" itemValue="1"/>
+                </p:selectOneMenu>
+
                 <p:outputLabel for="txtrival1" value="Equipo Local"/>
                 <p:inputText id="txtrival1" placeholder="Equipo Local" value="#{PartidosBean.partido.rival1}"
                              required="true" requiredMessage="Debes de ingresar el nombre del equipo local"/>
