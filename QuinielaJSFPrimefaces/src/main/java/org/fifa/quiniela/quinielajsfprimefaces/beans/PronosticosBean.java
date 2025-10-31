@@ -1,24 +1,34 @@
 package org.fifa.quiniela.quinielajsfprimefaces.beans;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.SelectItem;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 import org.fifa.quiniela.quinielajsfprimefaces.data.Partido;
 import org.fifa.quiniela.quinielajsfprimefaces.data.Partidos;
 import org.fifa.quiniela.quinielajsfprimefaces.data.Pronostico;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named("PronosticosBean")
 @ViewScoped
-public class PronosticosBean implements java.io.Serializable {
+public class PronosticosBean implements Serializable {
     private Partido partido;
     private String usuario;
     private int golesLocal;
     private int golesVisitante;
+    private List<SelectItem> partidosItems;
 
-    public PronosticosBean(){
+    @PostConstruct
+    public void init() {
+        partidosItems = new ArrayList<>();
+        for (Partido p : Partidos.getInstance().getPartidos()) {
+            partidosItems.add(new SelectItem(p, p.toString()));
+        }
         limpiarPantalla();
     }
 
@@ -26,20 +36,19 @@ public class PronosticosBean implements java.io.Serializable {
         this.golesLocal = 0;
         this.golesVisitante = 0;
         this.usuario = "";
-        this.partido = new Partido();
+        // No inicializar partido a new Partido() para que la selección se mantenga
     }
 
     public void registrarPronostico() {
-        Partidos.getInstance().getPartidos().add(this.partido);
-        Pronostico pronostico = new Pronostico(golesLocal, golesVisitante, usuario);
+        if (partido == null) {
+            showError("Error de validación", "Debe seleccionar un partido.");
+            return;
+        }
+        Pronostico pronostico = new Pronostico(golesLocal, golesVisitante, usuario, partido);
         Partidos.getInstance().getPronosticos().add(pronostico);
 
         limpiarPantalla();
         showInfo("Registro de pronóstico", "Registro guardado exitosamente!");
-    }
-
-    public List<Partido> obtenerPartidos(){
-        return Partidos.getInstance().getPartidos();
     }
 
     public List<Pronostico> obtenerPronosticos(){
@@ -58,6 +67,8 @@ public class PronosticosBean implements java.io.Serializable {
         FacesContext.getCurrentInstance().
                 addMessage(null, new FacesMessage(severity, summary, detail));
     }
+
+    // Getters y Setters
 
     public Partido getPartido() {
         return partido;
@@ -89,5 +100,13 @@ public class PronosticosBean implements java.io.Serializable {
 
     public void setGolesVisitante(int golesVisitante) {
         this.golesVisitante = golesVisitante;
+    }
+
+    public List<SelectItem> getPartidosItems() {
+        return partidosItems;
+    }
+
+    public void setPartidosItems(List<SelectItem> partidosItems) {
+        this.partidosItems = partidosItems;
     }
 }

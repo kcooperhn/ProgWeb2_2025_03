@@ -11,7 +11,7 @@ public class Partido implements java.io.Serializable {
     public Partido() {
         this.rival1 = "";
         this.rival2 = "";
-        this.fechaHora = LocalDateTime.now();
+        this.fechaHora = LocalDateTime.now().plusDays(1);
     }
 
     public Partido(String rival1, String rival2, LocalDateTime fechaHora) {
@@ -45,4 +45,8 @@ public class Partido implements java.io.Serializable {
         this.fechaHora = fechaHora;
     }
 
+    @Override
+    public String toString() {
+        return rival1 + " vs " + rival2 ;
+    }
 }

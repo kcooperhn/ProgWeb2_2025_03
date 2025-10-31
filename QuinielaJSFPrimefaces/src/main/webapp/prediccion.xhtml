@@ -46,47 +46,55 @@
 
         <p:panel header="Registro de Resultado">
             <p:panelGrid columns="2" layout="grid" styleClass="ui-fluid">
-                <p:outputLabel for="@next" value="Partido"/>
-                <p:selectOneMenu id="partidoPronostico" value="#{PronosticosBean.obtenerPartidos()}">
-                    <f:selectItem itemLabel="Zero" itemValue="0"/>
-                    <f:selectItem itemLabel="One" itemValue="1"/>
+                <p:outputLabel for="partidoPronostico" value="Partido"/>
+                <p:selectOneMenu id="partidoPronostico" value="#{PronosticosBean.partido}" converter="partidoConverter">
+                    <f:selectItem itemLabel="Seleccione un partido" itemValue="" />
+                    <f:selectItems value="#{PronosticosBean.partidosItems}" />
                 </p:selectOneMenu>
 
-                <p:outputLabel for="txtrival1" value="Equipo Local"/>
-                <p:inputText id="txtrival1" placeholder="Equipo Local" value="#{PartidosBean.partido.rival1}"
-                             required="true" requiredMessage="Debes de ingresar el nombre del equipo local"/>
+                <p:outputLabel for="txtgolesrival1" value="Goles del Equipo Local"/>
+                <p:inputNumber id="txtgolesrival1" placeholder="Goles Equipo Local" value="#{PronosticosBean.golesLocal}"
+                             minValue="0" maxValue="20" decimalPlaces="0"
+                             required="true" requiredMessage="Debes de ingresar el marcador del equipo local"/>
 
-                <p:outputLabel for="txtrival2" value="Equipo Visitante"/>
-                <p:inputText id="txtrival2" placeholder="Equipo Visitante" value="#{PartidosBean.partido.rival2}"
-                             required="true" requiredMessage="Debes de ingresar el nombre del equipo visitante"/>
+                <p:outputLabel for="txtgolesrival2" value="Goles del Equipo Visitante"/>
+                <p:inputNumber id="txtgolesrival2" placeholder="Goles Equipo Visitante" value="#{PronosticosBean.golesVisitante}"
+                             minValue="0" maxValue="20" decimalPlaces="0"
+                             required="true" requiredMessage="Debes de ingresar el marcador del equipo visitante"/>
 
-                <p:outputLabel for="horarioPartido" value="Fecha y hora del partido"/>
-                <p:datePicker id="horarioPartido" value="#{PartidosBean.partido.fechaHora}" mindate="#{PartidosBean.minDateTime}"
-                              maxdate="#{PartidosBean.maxDateTime}" showButtonBar="true" timeInput="true"
-                              required="true" requiredMessage="Debes de ingresar la fecha y hora del encuentro"/>
+                <p:outputLabel for="txtusuarioprediccion" value="Usuario actual"/>
+                <p:inputText id="txtusuarioprediccion" placeholder="DNI del usuario" value="#{PronosticosBean.usuario}"
+                               required="true" requiredMessage="Debes de ingresar el DNI del usuario que realiza la predicción"/>
             </p:panelGrid>
 
-            <p:commandButton value="Registrar Partido" styleClass="rounded-button"
-                             update="growl,form1"
-                             actionListener="#{PartidosBean.registrarPartido}"/>
+            <p:commandButton value="Gardar mi predicción" styleClass="rounded-button"
+                             update="growl,form1" actionListener="#{PronosticosBean.registrarPronostico}"/>
         </p:panel>
 
-        <p:dataTable id="partidosTable" var="partido" value="#{PartidosBean.obtenerPartidos()}"
+        <p:dataTable id="partidosTable" var="pro" value="#{PronosticosBean.obtenerPronosticos()}"
                      style="margin-top: 20px;">
             <f:facet name="header">
-                Listado de Partidos
+                Listado de Pronosticos registrados
             </f:facet>
+            <p:column headerText="Usuario">
+                <h:outputText value="#{pro.usuario}" />
+            </p:column>
             <p:column headerText="Equipo Local">
-                <h:outputText value="#{partido.rival1}" />
+                <h:outputText value="#{pro.partido.rival1}" />
+            </p:column>
+            <p:column headerText="Goles Equipo Local">
+                <h:outputText value="#{pro.golesLocal}" />
             </p:column>
             <p:column headerText="Equipo Visitante">
-                <h:outputText value="#{partido.rival2}" />
+                <h:outputText value="#{pro.partido.rival2}" />
+            </p:column>
+            <p:column headerText="Goles Equipo Visitante">
+                <h:outputText value="#{pro.golesVisitante}" />
             </p:column>
             <p:column headerText="Fecha y Hora">
-                <h:outputText value="#{partido.fechaHora}"/>
+                <h:outputText value="#{pro.partido.fechaHora}"/>
             </p:column>
         </p:dataTable>
-
     </h:form>
 </h:body>
 </html>
