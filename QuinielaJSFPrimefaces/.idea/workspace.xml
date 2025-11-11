@@ -9,14 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="508e50c1-342b-4cd2-b8ac-4ad3275d73fb" name="Changes" comment="aplicación primefaces">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fifa/quiniela/quinielajsfprimefaces/beans/PartidoConverter.java" afterDir="false" />
+    <list default="true" id="508e50c1-342b-4cd2-b8ac-4ad3275d73fb" name="Changes" comment="Creacion de MVC modelo con retrofit">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fifa/quiniela/quinielajsfprimefaces/data/AbstractResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fifa/quiniela/quinielajsfprimefaces/data/ResponsePartidos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fifa/quiniela/quinielajsfprimefaces/modelo/DatabaseClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fifa/quiniela/quinielajsfprimefaces/modelo/DatabaseRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fifa/quiniela/quinielajsfprimefaces/modelo/DatabaseRepositoryImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/fifa/quiniela/quinielajsfprimefaces/beans/PronosticosBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/fifa/quiniela/quinielajsfprimefaces/beans/PronosticosBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/fifa/quiniela/quinielajsfprimefaces/data/Partido.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/fifa/quiniela/quinielajsfprimefaces/data/Partido.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/fifa/quiniela/quinielajsfprimefaces/data/Pronostico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/fifa/quiniela/quinielajsfprimefaces/data/Pronostico.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/prediccion.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/prediccion.xhtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +26,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="jsf" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -93,6 +93,9 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -100,6 +103,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.fifa.quiniela.quinielajsfprimefaces.modelo" />
       <recent name="org.fifa.quiniela.quinielajsfprimefaces.data" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -224,7 +228,15 @@
       <workItem from="1761663071970" duration="3847000" />
       <workItem from="1761784920069" duration="362000" />
       <workItem from="1761785294211" duration="2270000" />
-      <workItem from="1761870647656" duration="4952000" />
+      <workItem from="1761870647656" duration="5157000" />
+      <workItem from="1762177445444" duration="29000" />
+      <workItem from="1762302697667" duration="2141000" />
+      <workItem from="1762359863744" duration="661000" />
+      <workItem from="1762389799964" duration="20000" />
+      <workItem from="1762389841785" duration="2157000" />
+      <workItem from="1762476983521" duration="1919000" />
+      <workItem from="1762572125923" duration="3000" />
+      <workItem from="1762821326529" duration="1325000" />
     </task>
     <task id="LOCAL-00001" summary="aplicación primefaces">
       <option name="closed" value="true" />
@@ -234,7 +246,23 @@
       <option name="project" value="LOCAL" />
       <updated>1761790123299</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Pantalla de pronosticos">
+      <option name="closed" value="true" />
+      <created>1761877768770</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1761877768770</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Librerias retrofit">
+      <option name="closed" value="true" />
+      <created>1762391630616</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1762391630616</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,6 +270,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="aplicación primefaces" />
-    <option name="LAST_COMMIT_MESSAGE" value="aplicación primefaces" />
+    <MESSAGE value="Pantalla de pronosticos" />
+    <MESSAGE value="Librerias retrofit" />
+    <MESSAGE value="Creacion de MVC modelo con retrofit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Creacion de MVC modelo con retrofit" />
   </component>
 </project>
