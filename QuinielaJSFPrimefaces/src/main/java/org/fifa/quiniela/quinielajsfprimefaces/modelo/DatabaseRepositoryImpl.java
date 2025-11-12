@@ -1,5 +1,7 @@
 package org.fifa.quiniela.quinielajsfprimefaces.modelo;
 
+import okhttp3.ResponseBody;
+import org.fifa.quiniela.quinielajsfprimefaces.data.Partido;
 import org.fifa.quiniela.quinielajsfprimefaces.data.ResponsePartidos;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -29,5 +31,11 @@ public class DatabaseRepositoryImpl {
         Call<ResponsePartidos> call = client.getInstance().consultarPartidos();
         Response<ResponsePartidos> response = call.execute();
         return response.isSuccessful()?response.body():null;
+    }
+
+    public boolean crearPartido(Partido nuevo) throws IOException {
+        Call<ResponseBody> call = client.getInstance().crearPartido(nuevo);
+        Response<ResponseBody> response = call.execute();
+        return response.isSuccessful();
     }
 }

@@ -55,7 +55,7 @@
                              required="true" requiredMessage="Debes de ingresar el nombre del equipo visitante"/>
 
                 <p:outputLabel for="horarioPartido" value="Fecha y hora del partido"/>
-                <p:datePicker id="horarioPartido" value="#{PartidosBean.partido.fechaHora}" mindate="#{PartidosBean.minDateTime}"
+                <p:datePicker id="horarioPartido" value="#{PartidosBean.partido.fechahora}" mindate="#{PartidosBean.minDateTime}"
                               maxdate="#{PartidosBean.maxDateTime}" showButtonBar="true" timeInput="true"
                               required="true" requiredMessage="Debes de ingresar la fecha y hora del encuentro"/>
             </p:panelGrid>
@@ -77,7 +77,7 @@
                 <h:outputText value="#{partido.rival2}" />
             </p:column>
             <p:column headerText="Fecha y Hora">
-                <h:outputText value="#{partido.fechaHora}"/>
+                <h:outputText value="#{partido.fechahora}"/>
             </p:column>
         </p:dataTable>
 

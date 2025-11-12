@@ -6,18 +6,18 @@ public class Partido implements java.io.Serializable {
 
     private String rival1;
     private String rival2;
-    private LocalDateTime fechaHora;
+    private LocalDateTime fechahora;
 
     public Partido() {
         this.rival1 = "";
         this.rival2 = "";
-        this.fechaHora = LocalDateTime.now().plusDays(1);
+        this.fechahora = LocalDateTime.now().plusDays(1);
     }
 
-    public Partido(String rival1, String rival2, LocalDateTime fechaHora) {
+    public Partido(String rival1, String rival2, LocalDateTime fechahora) {
         this.rival1 = rival1;
         this.rival2 = rival2;
-        this.fechaHora = fechaHora;
+        this.fechahora = fechahora;
     }
 
     // Getters y Setters
@@ -37,12 +37,12 @@ public class Partido implements java.io.Serializable {
         this.rival2 = rival2;
     }
 
-    public LocalDateTime getFechaHora() {
-        return fechaHora;
+    public LocalDateTime getFechahora() {
+        return fechahora;
     }
 
-    public void setFechaHora(LocalDateTime fechaHora) {
-        this.fechaHora = fechaHora;
+    public void setFechahora(LocalDateTime fechahora) {
+        this.fechahora = fechahora;
     }
 
     @Override
